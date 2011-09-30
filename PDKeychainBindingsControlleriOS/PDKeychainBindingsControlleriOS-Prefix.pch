@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'PDKeychainBindingsControlleriOS' target in the 'PDKeychainBindingsControlleriOS' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif
