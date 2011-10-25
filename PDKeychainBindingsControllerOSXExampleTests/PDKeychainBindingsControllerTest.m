@@ -116,4 +116,15 @@
 
 */
 
+- (void)testArray
+{
+    PDKeychainBindingsController *controller = [PDKeychainBindingsController sharedKeychainBindingsController];
+    STAssertTrue([controller storeArray:nil forKey:@"myTestArray"], @"Test store nil array.");
+    NSArray *inArray = [NSArray arrayWithObjects:@"foo", @"bar", nil];
+    STAssertTrue([controller storeArray:inArray forKey:@"myTestArray"], @"Test store array");
+    NSArray *outArray = [controller arrayForKey:@"myTestArray"];
+    STAssertNotNil(outArray, @"Test retrieve array.");
+    STAssertTrue([(NSString*)[inArray objectAtIndex:0] isEqualToString:(NSString*)[outArray objectAtIndex:0]], @"Test array values equal.");
+}
+
 @end

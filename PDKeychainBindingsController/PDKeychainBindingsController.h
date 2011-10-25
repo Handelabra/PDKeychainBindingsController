@@ -24,5 +24,8 @@
 - (NSString*)stringForKey:(NSString*)key;
 - (BOOL)storeString:(NSString*)string forKey:(NSString*)key;
 
+- (NSArray*)arrayForKey:(NSString*)key;
+- (BOOL)storeArray:(NSArray*)array forKey:(NSString*)key;
+
 @end
 

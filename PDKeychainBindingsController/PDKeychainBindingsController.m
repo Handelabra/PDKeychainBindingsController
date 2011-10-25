@@ -119,6 +119,53 @@ static PDKeychainBindingsController *sharedInstance = nil;
     }
 }
 
+// Since Mac OS X 10.6 and iOS 2.0 the keychain API is basically the same.
+
+- (NSArray*)arrayForKey:(NSString*)key {
+	OSStatus status;
+    CFDataRef arrayData = NULL;
+    NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:(id)kCFBooleanTrue, kSecReturnData,
+                           kSecClassGenericPassword, kSecClass,
+                           key, kSecAttrAccount,
+                           [self serviceName], kSecAttrService,
+                           nil];
+	
+    status = SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef*)&arrayData);
+	if(status)
+    {
+        return nil;
+    }
+	
+    NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:(NSData*)arrayData];
+    CFRelease(arrayData);
+	return array;	
+}
+
+- (BOOL)storeArray:(NSArray*)array forKey:(NSString*)key {
+	if (!array)  {
+		//Need to delete the Key 
+        NSDictionary *spec = [NSDictionary dictionaryWithObjectsAndKeys:(id)kSecClassGenericPassword, kSecClass,
+                              key, kSecAttrAccount,[self serviceName], kSecAttrService, nil];
+        
+        return !SecItemDelete((CFDictionaryRef)spec);
+    } else {
+        NSData *arrayData = [NSKeyedArchiver archivedDataWithRootObject:array];
+        NSDictionary *spec = [NSDictionary dictionaryWithObjectsAndKeys:(id)kSecClassGenericPassword, kSecClass,
+                              key, kSecAttrAccount,[self serviceName], kSecAttrService, nil];
+        
+        if(!array) {
+            return !SecItemDelete((CFDictionaryRef)spec);
+        }else if([self arrayForKey:key]) {
+            NSDictionary *update = [NSDictionary dictionaryWithObject:arrayData forKey:(id)kSecValueData];
+            return !SecItemUpdate((CFDictionaryRef)spec, (CFDictionaryRef)update);
+        }else{
+            NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:spec];
+            [data setObject:arrayData forKey:(id)kSecValueData];
+            return !SecItemAdd((CFDictionaryRef)data, NULL);
+        }
+    }
+}
+
 #pragma mark -
 #pragma mark Singleton Stuff
 
