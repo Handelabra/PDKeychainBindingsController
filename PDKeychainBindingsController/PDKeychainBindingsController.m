@@ -168,12 +168,12 @@ static PDKeychainBindingsController *sharedInstance = nil;
 
 #pragma mark -
 #pragma mark Singleton Stuff
-
+#if !defined(__has_feature) || !__has_feature(objc_arc)
 + (PDKeychainBindingsController *)sharedKeychainBindingsController 
 {
 	@synchronized (self) {
 		if (sharedInstance == nil) {
-			[[self alloc] init]; // assignment not done here, see allocWithZone
+			sharedInstance = [[self alloc] init];
 		}
 	}
 	
@@ -216,6 +216,18 @@ static PDKeychainBindingsController *sharedInstance = nil;
 {
     return NSUIntegerMax;  // This is sooo not zero
 }
+#else
++ (PDKeychainBindingsController*)sharedKeychainBindingsController
+{
+    static dispatch_once_t pred = 0;
+    __strong static id _sharedObject = nil;
+    
+    dispatch_once(&pred, ^{
+        _sharedObject = [[self alloc] init];
+    });
+    return _sharedObject;
+}
+#endif
 
 - (id)init
 {
