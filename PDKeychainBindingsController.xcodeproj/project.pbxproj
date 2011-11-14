@@ -689,6 +689,128 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		B01C62901471B9EA007381AA /* TestFlight */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = TestFlight;
+		};
+		B01C62911471B9EA007381AA /* TestFlight */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PDKeychainBindingsControllerOSXExample/PDKeychainBindingsControllerOSXExample-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "PDKeychainBindingsControllerOSXExample/PDKeychainBindingsControllerOSXExample-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = app;
+			};
+			name = TestFlight;
+		};
+		B01C62921471B9EA007381AA /* TestFlight */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PDKeychainBindingsControllerOSXExample.app/Contents/MacOS/PDKeychainBindingsControllerOSXExample";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PDKeychainBindingsControllerOSXExampleTests/PDKeychainBindingsControllerOSXExampleTests-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "PDKeychainBindingsControllerOSXExampleTests/PDKeychainBindingsControllerOSXExampleTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = TestFlight;
+		};
+		B01C62931471B9EA007381AA /* TestFlight */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PDKeychainBindingsControlleriOSExample/PDKeychainBindingsControlleriOSExample-Prefix.pch";
+				INFOPLIST_FILE = "PDKeychainBindingsControlleriOSExample/PDKeychainBindingsControlleriOSExample-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = TestFlight;
+		};
+		B01C62941471B9EA007381AA /* TestFlight */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PDKeychainBindingsControlleriOSExample.app/PDKeychainBindingsControlleriOSExample";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PDKeychainBindingsControlleriOSExampleTests/PDKeychainBindingsControlleriOSExampleTests-Prefix.pch";
+				INFOPLIST_FILE = "PDKeychainBindingsControlleriOSExampleTests/PDKeychainBindingsControlleriOSExampleTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = TestFlight;
+		};
+		B01C62951471B9EA007381AA /* TestFlight */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(VALID_ARCHS)";
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/PDKeychainBindingsControlleriOS.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PDKeychainBindingsControlleriOS/PDKeychainBindingsControlleriOS-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = TestFlight;
+		};
 		B0C5921D14366C0F00184626 /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1068,6 +1190,7 @@
 				B0F09E3F1436712E0065CF53 /* Debug */,
 				B0F09E401436712E0065CF53 /* Cupcakes */,
 				B0F09E411436712E0065CF53 /* Distribution */,
+				B01C62951471B9EA007381AA /* TestFlight */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Cupcakes;
@@ -1078,6 +1201,7 @@
 				D39ABDE313CA80B50078DA13 /* Debug */,
 				D39ABDE413CA80B50078DA13 /* Cupcakes */,
 				B0C5921D14366C0F00184626 /* Distribution */,
+				B01C62901471B9EA007381AA /* TestFlight */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Cupcakes;
@@ -1088,6 +1212,7 @@
 				D39ABE1E13CA80D90078DA13 /* Debug */,
 				D39ABE1F13CA80D90078DA13 /* Cupcakes */,
 				B0C5921E14366C0F00184626 /* Distribution */,
+				B01C62911471B9EA007381AA /* TestFlight */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Cupcakes;
@@ -1098,6 +1223,7 @@
 				D39ABE2113CA80D90078DA13 /* Debug */,
 				D39ABE2213CA80D90078DA13 /* Cupcakes */,
 				B0C5921F14366C0F00184626 /* Distribution */,
+				B01C62921471B9EA007381AA /* TestFlight */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Cupcakes;
@@ -1108,6 +1234,7 @@
 				D39ABE5813CA81090078DA13 /* Debug */,
 				D39ABE5913CA81090078DA13 /* Cupcakes */,
 				B0C5922014366C0F00184626 /* Distribution */,
+				B01C62931471B9EA007381AA /* TestFlight */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Cupcakes;
@@ -1118,6 +1245,7 @@
 				D39ABE5B13CA81090078DA13 /* Debug */,
 				D39ABE5C13CA81090078DA13 /* Cupcakes */,
 				B0C5922114366C0F00184626 /* Distribution */,
+				B01C62941471B9EA007381AA /* TestFlight */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Cupcakes;
