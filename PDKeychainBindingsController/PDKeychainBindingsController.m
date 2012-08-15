@@ -121,49 +121,93 @@ static PDKeychainBindingsController *sharedInstance = nil;
 
 // Since Mac OS X 10.6 and iOS 2.0 the keychain API is basically the same.
 
-- (NSArray*)arrayForKey:(NSString*)key {
+- (id)objectForKey:(NSString*)key {
 	OSStatus status;
-    CFDataRef arrayData = NULL;
+    CFDataRef data = NULL;
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:(id)kCFBooleanTrue, kSecReturnData,
                            kSecClassGenericPassword, kSecClass,
                            key, kSecAttrAccount,
                            [self serviceName], kSecAttrService,
                            nil];
 	
-    status = SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef*)&arrayData);
+    status = SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef*)&data);
 	if(status)
     {
         return nil;
     }
 	
-    NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:(NSData*)arrayData];
-    CFRelease(arrayData);
-	return array;	
+    id result = [NSKeyedUnarchiver unarchiveObjectWithData:(NSData*)data];
+    CFRelease(data);
+	return result;
 }
 
-- (BOOL)storeArray:(NSArray*)array forKey:(NSString*)key {
-	if (!array)  {
-		//Need to delete the Key 
+- (BOOL)storeObject:(id)obj forKey:(NSString*)key {
+	if (!obj)  {
+		// Need to delete the Key
         NSDictionary *spec = [NSDictionary dictionaryWithObjectsAndKeys:(id)kSecClassGenericPassword, kSecClass,
                               key, kSecAttrAccount,[self serviceName], kSecAttrService, nil];
         
         return !SecItemDelete((CFDictionaryRef)spec);
-    } else {
-        NSData *arrayData = [NSKeyedArchiver archivedDataWithRootObject:array];
+    }
+    else
+    {
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
         NSDictionary *spec = [NSDictionary dictionaryWithObjectsAndKeys:(id)kSecClassGenericPassword, kSecClass,
                               key, kSecAttrAccount,[self serviceName], kSecAttrService, nil];
         
-        if(!array) {
+        if(!obj)
+        {
+            // Nil, delete it
             return !SecItemDelete((CFDictionaryRef)spec);
-        }else if([self arrayForKey:key]) {
-            NSDictionary *update = [NSDictionary dictionaryWithObject:arrayData forKey:(id)kSecValueData];
+        }
+        else if ([self objectForKey:key])
+        {
+            // Already exists, update it
+            NSDictionary *update = [NSDictionary dictionaryWithObject:data forKey:(id)kSecValueData];
             return !SecItemUpdate((CFDictionaryRef)spec, (CFDictionaryRef)update);
-        }else{
-            NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:spec];
-            [data setObject:arrayData forKey:(id)kSecValueData];
-            return !SecItemAdd((CFDictionaryRef)data, NULL);
+        }
+        else
+        {
+            // New, add it
+            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:spec];
+            [dict setObject:data forKey:(id)kSecValueData];
+            return !SecItemAdd((CFDictionaryRef)dict, NULL);
         }
     }
+}
+
+- (NSArray*)arrayForKey:(NSString*)key
+{
+    id obj = [self objectForKey:key];
+    
+    if (![obj isKindOfClass:[NSArray class]])
+    {
+        obj = nil;
+    }
+    
+    return obj;
+}
+
+- (BOOL)storeArray:(NSArray*)array forKey:(NSString*)key
+{
+    return [self storeObject:array forKey:key];
+}
+
+- (NSDictionary*)dictionaryForKey:(NSString*)key
+{
+    id obj = [self objectForKey:key];
+    
+    if (![obj isKindOfClass:[NSDictionary class]])
+    {
+        obj = nil;
+    }
+    
+    return obj;
+}
+
+- (BOOL)storeDictionary:(NSDictionary*)dict forKey:(NSString*)key
+{
+    return [self storeObject:dict forKey:key];
 }
 
 #pragma mark -

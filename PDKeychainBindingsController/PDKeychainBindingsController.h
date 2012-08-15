@@ -24,8 +24,14 @@
 - (NSString*)stringForKey:(NSString*)key;
 - (BOOL)storeString:(NSString*)string forKey:(NSString*)key;
 
+- (id)objectForKey:(NSString*)key;
+- (BOOL)storeObject:(id)obj forKey:(NSString*)key;
+
 - (NSArray*)arrayForKey:(NSString*)key;
 - (BOOL)storeArray:(NSArray*)array forKey:(NSString*)key;
+
+- (NSDictionary*)dictionaryForKey:(NSString*)key;
+- (BOOL)storeDictionary:(NSDictionary*)dict forKey:(NSString*)key;
 
 @end
 
